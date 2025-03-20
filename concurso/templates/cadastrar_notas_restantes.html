@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Notas Restantes</title>
+</head>
+<body>
+    <h1>Cadastrar Notas Restantes para {{ concurso.nome }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        {% for tabela in tabelas %}
+            <h2>Prova: {{ tabela.prova.nome }}</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Candidato</th>
+                        {% for examinador in examinadores %}
+                            <th>{{ examinador.nome }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in tabela.linhas %}
+                        <tr>
+                            <td>{{ linha.candidato.nome }}</td>
+                            {% for campo in linha.linha %}
+                                <td>{{ campo.form }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Candidatos</title>
+</head>
+<body>
+    <h1>Cadastrar Candidatos para {{ concurso.nome }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <h2>Provas</h2>
+        {{ provas_formset.management_form }}
+        <table>
+            {% for form in provas_formset %}
+                <tr>
+                    <td>{{ form.as_p }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <h2>Candidatos</h2>
+        {{ candidatos_formset.management_form }}
+        <table>
+            {% for form in candidatos_formset %}
+                <tr>
+                    <td>{{ form.as_p }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <button type="submit">Salvar Dados</button>
+    </form>
+    <a href="{% url 'cadastrar_examinadores' concurso.id %}">Voltar</a>
+</body>
+</html>
+
+

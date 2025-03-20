@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados do Concurso</title>
+</head>
+<body>
+    <h1>Resultados do Concurso {{ concurso.nome }}</h1>
+
+    <h2>Notas Finais por Examinador</h2>
+    {% for examinador, notas in notas_finais.items %}
+        <h3>{{ examinador.nome }}</h3>
+        <ul>
+            {% for candidato, nota in notas %}
+                <li>{{ candidato.nome }}: {{ nota|floatformat:2 }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <h2>Classificação Geral</h2>
+    <ol>
+        {% for candidato, score in classificacao_geral %}
+            <li>{{ candidato.nome }} (Score: {{ score|floatformat:2 }})</li>
+        {% endfor %}
+    </ol>
+</body>
+</html>

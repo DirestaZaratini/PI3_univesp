@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Notas Eliminatórias</title>
+</head>
+<body>
+    <h1>Cadastrar Notas Eliminatórias para {{ concurso.nome }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Prova</th>
+                <th>Candidato</th>
+                <th>Examinador</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset %}
+                <tr>
+                    <td>{{ form.instance.prova }}</td>
+                    <td>{{ form.instance.candidato }}</td>
+                    <td>{{ form.instance.examinador }}</td>
+                    <td>
+                        {{ form.nota }}
+                        {% if form.errors %}
+                            <div style="color: red;">
+                                {{ form.errors }}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Salvar Notas</button>
+</form>
